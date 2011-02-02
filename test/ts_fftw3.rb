@@ -1,4 +1,5 @@
-# hornetseye-fftw3 - Fourier transforms
+#!/usr/bin/env ruby
+# hornetseye-fftw3 - Fast fourier transforms
 # Copyright (C) 2011 Jan Wedekind
 #
 # This program is free software: you can redistribute it and/or modify
@@ -13,6 +14,5 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-require 'multiarray'
-require 'hornetseye-fftw3/node.rb'
+require 'tc_fftw3'
 

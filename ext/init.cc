@@ -30,7 +30,6 @@ extern "C" {
 
   void Init_hornetseye_fftw3(void)
   {
-    rb_require( "multiarray" );
     VALUE rbHornetseye = rb_define_module( "Hornetseye" );
     Node::registerRubyClass( rbHornetseye );
     rb_require( "hornetseye_fftw3_ext.rb" );

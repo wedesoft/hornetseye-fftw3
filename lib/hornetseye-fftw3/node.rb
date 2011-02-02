@@ -13,6 +13,40 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-require 'multiarray'
-require 'hornetseye-fftw3/node.rb'
+module Hornetseye
+
+  class Node
+
+    alias_method :orig_fft, :fft
+
+    def fft( forward = true )
+      if forward
+        to_type( Hornetseye::COMPLEX( basetype.float ) ).memorise.orig_fft true
+      else
+        to_type( Hornetseye::COMPLEX( basetype.float ) ).memorise.orig_fft( false ) / size
+      end
+    end
+
+    def ifft
+      fft false
+    end
+
+    alias_method :orig_rfft, :rfft
+
+    def rfft( forward = true )
+      if forward
+        to_type( typecode.float ).memorise.orig_rfft true
+      else
+        result = to_type( Hornetseye::COMPLEX( basetype.float ) ).memorise.orig_rfft false
+        result / result.size
+      end
+    end
+
+    def irfft
+      rfft false
+    end
+
+  end
+
+end
 
