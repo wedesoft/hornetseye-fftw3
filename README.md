@@ -15,7 +15,7 @@ Installation
 
 *hornetseye-fftw3* requires the FFTW3 libraries. If you are running Debian or (K)ubuntu, you can install them like this:
 
-    $ sudo aptitude install libfftw3-dev
+    $ sudo aptitude install libfftw3-dev libboost-dev
 
 To install this Ruby extension, use the following command:
 
