@@ -49,7 +49,7 @@ VALUE Node::wrapFFT( VALUE rbSelf, VALUE rbForward )
     int rank = RARRAY_LEN( rbShape );
     shared_array< int > n( new int[ rank ] );
     for ( int i=0; i<rank; i++ )
-      n[ rank - 1 - i ] = NUM2INT( RARRAY_PTR( rbShape )[i] );
+      n[ rank - 1 - i ] = NUM2INT( rb_ary_entry( rbShape , i) );
     VALUE rbDest = Qnil;
     if ( rb_funcall( rbTypecode, rb_intern( "==" ), 1,
                      rb_const_get( mModule, rb_intern( "SCOMPLEX" ) ) ) == Qtrue ) {
@@ -88,7 +88,7 @@ VALUE Node::wrapFFT( VALUE rbSelf, VALUE rbForward )
     rbRetVal = rb_funcall2( rb_funcall( rb_const_get( mModule, rb_intern( "Sequence" ) ),
                                         rb_intern( "import" ), 3,
                                         rbTypecode, rbDest, rbSize ),
-                            rb_intern( "reshape" ), rank, RARRAY_PTR(rbShape) );
+                            rb_intern( "reshape" ), rank, RARRAY_CONST_PTR(rbShape) );
   } catch ( std::exception &e ) {
     rb_raise( rb_eRuntimeError, "%s", e.what() );
   };
@@ -108,7 +108,7 @@ VALUE Node::wrapRFFT( VALUE rbSelf, VALUE rbForward )
     int rank = RARRAY_LEN( rbShape );
     shared_array< int > n( new int[ rank ] );
     for ( int i=0; i<rank; i++ )
-      n[ rank - 1 - i ] = NUM2INT( RARRAY_PTR( rbShape )[i] );
+      n[ rank - 1 - i ] = NUM2INT( rb_ary_entry( rbShape , i) );
     VALUE rbDest = Qnil;
     VALUE rbRetType = Qnil;
     int size = 0;
@@ -119,11 +119,11 @@ VALUE Node::wrapRFFT( VALUE rbSelf, VALUE rbForward )
                     "fourier transform of real data" );
         int half = n[ rank - 1 ] / 2 + 1;
         size = inSize / n[ rank - 1 ] * half;
-        RARRAY_PTR(rbShape)[0] = INT2NUM(half);
+        rb_ary_store(rbShape, 0, INT2NUM(half));
       } else {
         int twice = ( n[ rank - 1 ] - 1 ) * 2;
         size = inSize / n[ rank - 1 ] * twice;
-        RARRAY_PTR(rbShape)[0] = INT2NUM(twice);
+        rb_ary_store(rbShape, 0, INT2NUM(twice));
         n[ rank - 1 ] = twice;
       };
     };
@@ -214,7 +214,7 @@ VALUE Node::wrapRFFT( VALUE rbSelf, VALUE rbForward )
     rbRetVal = rb_funcall2( rb_funcall( rb_const_get( mModule, rb_intern( "Sequence" ) ),
                                         rb_intern( "import" ), 3,
                                         rbRetType, rbDest, INT2NUM( size ) ),
-                            rb_intern( "reshape" ), rank, RARRAY_PTR(rbShape) );
+                            rb_intern( "reshape" ), rank, RARRAY_CONST_PTR(rbShape) );
   } catch ( std::exception &e ) {
     rb_raise( rb_eRuntimeError, "%s", e.what() );
   };
