@@ -35,7 +35,7 @@ class TC_FFTW3 < Test::Unit::TestCase
 
   def test_fft
     [ SC, DC ].each do |t|
-      s = S( t, 3 )[ 1, I, 3 ]
+      s = S( t )[ 1, I, 3 ]
       u = s.fft.ifft
       s.to_a.zip( u.to_a ).each do |a,b|
         assert_in_delta a.real, b.real, 1.0e-5
@@ -46,7 +46,7 @@ class TC_FFTW3 < Test::Unit::TestCase
 
   def test_rfft
     [ F, D ].each do |t|
-      s = S( t, 4 )[ 2, 3, 5, 7 ]
+      s = S( t )[ 2, 3, 5, 7 ]
       u = s.rfft.irfft
       s.to_a.zip( u.to_a ).each do |a,b|
         assert_in_delta a, b, 1.0e-5
