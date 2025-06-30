@@ -19,5 +19,5 @@ DESCRIPTION = %q{This Ruby extension provides bindings for the FFTW3 library.}
 LICENSE = 'GPL-3+'
 AUTHOR = %q{Jan Wedekind}
 EMAIL = %q{jan@wedesoft.de}
-HOMEPAGE = %q{http://wedesoft.github.com/hornetseye-fftw3/}
+HOMEPAGE = %q{http://wedesoft.github.io/hornetseye-fftw3/}
 
